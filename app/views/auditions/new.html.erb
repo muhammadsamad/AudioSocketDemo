@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="justify-content-center">
+    <div class="p-4 p-md-5">
+      <div class="d-flex justify-content-center">
+        <h2 class="signup-heading">Submit Audition</h2>
+      </div>
+      <br>
+      <%= form_with model: @audition, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.text_field :firstname, placeholder: "First Name", class: "form-control", autocomplete: "email" %>
+        </div>
+        <div class="mb-3">
+          <%= f.text_field :lastname, placeholder: "Last Name", class: "form-control", autocomplete: "email" %>
+        </div>
+        <div class="mb-3">
+          <%= f.email_field :email, placeholder: "Email Address", class: "form-control", autocomplete: "email" %>
+        </div>
+        <div class="mb-3">
+          <%= f.text_field :artist_name, placeholder: "Artist Name", class: "form-control", autocomplete: "artist_name" %>
+        </div>
+        <div>
+          <div class="mb-3" id="colours">
+            <%= f.fields_for :links do |t| %>
+              <%= render "link_fields", f: t %>
+            <% end %>
+            <div>
+              <br>
+              <%= link_to_add_association "Song Link", f, :links, class: 'links' %>
+            </div>
+          </div>
+          <div class="mb-3">
+            <p>Select Genre</p>
+            <%= f.select :genre, Audition::GENRES, {}, class: "form-control", multiple: true %>
+          </div>
+          <div class="mb-3">
+            <p>How did you hear about us?</p>
+            <%= f.select :media, Audition::SOURCES, {}, class: "form-control", id: "media" %>
+          </div>
+          <div class="mb-3" style="display: none;" id="ifYes">
+            <%= f.text_field :media_other, placeholder: "Enter Social Media", class: "form-control", autocomplete: "media_other" %>
+          </div>
+          <div class="mb-3">
+            <%= f.text_area :info, placeholder: "Any Additional Info", class: "form-control", autocomplete: "link" %>
+          </div>
+          <div class="mb-3 actions d-flex justify-content-center">
+            <%= f.submit "Submit", class: "btn btn-outline-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+

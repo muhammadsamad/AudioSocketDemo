@@ -17,8 +17,11 @@
               <div class="mb-3">
                 <%= f.password_field :password_confirmation, placeholder: "Confirm Password", class: "form-control", autocomplete: "new-password" %>
               </div>
-              <div class="mb-3 field d-flex justify-content-center">
-                <%#= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
+              <div class="form-group mb-3 field text-center">
+                <%= f.radio_button :role, 'artist' %>
+                <%= f.label :role, 'Artist' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <%= f.radio_button :role, 'manager' %>
+                <%= f.label :role, 'Manager' %>
               </div>
               <div class="mb-3 actions d-flex justify-content-center">
                 <%= f.submit "Sign up", class: "btn btn-outline-primary" %>

@@ -9,7 +9,7 @@ class Audition < ApplicationRecord
   before_validation :remove_empty_string_from_genre
 
   def remove_empty_string_from_genre
-    genre.reject(&:blank?)
+    genre.reject!(&:blank?)
   end
 
   GENRES = ['Acapella', 'Acid', 'Jazz', 'Acoustic', 'Acid', 'Acid Punk', 'Alternative', 'Hip Hop', 'Ambient',

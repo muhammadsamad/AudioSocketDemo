@@ -19,13 +19,13 @@ $(function() {
 });
 
 $(document).ready(function() {
+  $("#other-text-field").addClass("display-none");
   $('#media').on('change', function() {
     var conceptName = $('#media').find(":selected").text();
     if (conceptName == "Other") {
-        document.getElementById("other-text-field").style.display = "block";
+        $("#other-text-field").removeClass("display-none");
     } else {
-        document.getElementById("other-text-field").style.display = "none";
+        $("#other-text-field").addClass("display-none");
     }
-
   });
 });

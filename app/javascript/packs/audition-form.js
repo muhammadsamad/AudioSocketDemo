@@ -5,7 +5,7 @@ $(document).ready(function() {
     if (conceptName == "Other") {
       $("#other-text-field").removeClass("display-none");
     } else {
-        $("#other-text-field").addClass("display-none");
+      $("#other-text-field").addClass("display-none");
     }
   });
 

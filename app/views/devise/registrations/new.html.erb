@@ -18,10 +18,10 @@
             <%= f.password_field :password_confirmation, placeholder: "Confirm Password", class: "form-control", autocomplete: "new-password" %>
           </div>
           <div class="form-group mb-3 field text-center">
-            <%= f.radio_button :role, 'artist' %>
-            <%= f.label :role, 'Artist' %>
-            <%= f.radio_button :role, 'manager' %>
-            <%= f.label :role, 'Manager' %>
+            <%= f.radio_button :role, User::ARTIST %>
+            <%= f.label :role, User::ARTIST  %>
+            <%= f.radio_button :role, User::MANAGER %>
+            <%= f.label :role, User::MANAGER %>
           </div>
           <div class="mb-3 actions d-flex justify-content-center">
             <%= f.submit "Sign up", class: "btn btn-outline-primary" %>

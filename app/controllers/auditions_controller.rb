@@ -1,5 +1,4 @@
 class AuditionsController < ApplicationController
-
   def new
     @audition = Audition.new
     @links = @audition.links.build
@@ -17,8 +16,7 @@ class AuditionsController < ApplicationController
   private
   def audition_params
     params.require(:audition).permit(:firstname, :lastname, :email, :artist_name,
-                                     :link, :media, :media_other, :info,
-                                     links_attributes: [:id, :link_field, :_destroy], genre: [])
+                                    :link, :media, :media_other, :info,
+                                    links_attributes: [:id, :link_field, :_destroy], genre: [])
   end
-
 end

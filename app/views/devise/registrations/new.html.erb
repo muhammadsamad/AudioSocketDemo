@@ -27,7 +27,7 @@
             <%= f.submit "Sign up", class: "btn btn-outline-primary" %>
           </div>
           <div class="text-center ">Already have an account?
-            <a href="http://localhost:3000/users/sign_in">Login here</a>
+            <%= link_to 'Login Here', 'http://localhost:3000/users/sign_in' %>
           </div>
         <% end %>
       </div>

@@ -9,7 +9,6 @@ import "channels";
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
-require("jquery");
 require("@nathanvda/cocoon");
 import "bootstrap";
 require("packs/audition-form");
@@ -20,5 +19,5 @@ import 'select2/dist/css/select2.css';
 $(document).ready(function() {
   $('.genre-multiple').select2({
     closeOnSelect: false
-})
+  });
 });

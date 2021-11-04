@@ -3,16 +3,17 @@ $(document).ready(function() {
   $('#media').on('change', function() {
     let conceptName = $('#media').find(":selected").text();
     if (conceptName == "Other") {
-        $("#other-text-field").removeClass("display-none");
+      $("#other-text-field").removeClass("display-none");
     } else {
         $("#other-text-field").addClass("display-none");
     }
   });
+
   function check_to_hide_or_show_add_link() {
-   if ($('#link-fields .nested-fields:visible').length == 4) {
-     $('#link-fields .links').hide();
-   } else {
-     $('#link-fields .links').show();
+    if ($('#link-fields .nested-fields:visible').length == 4) {
+      $('#link-fields .links').hide();
+    } else {
+      $('#link-fields .links').show();
    }
   }
 

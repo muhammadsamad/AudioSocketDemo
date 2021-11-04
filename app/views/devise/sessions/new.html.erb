@@ -1,63 +1,39 @@
 <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="container-fluid">
-    <div class="d-flex justify-content-center">
-        <div class="rounded-3">
-          <div class="p-4 p-md-5">
-            <div class="d-flex justify-content-center">
-              <h2 class="signup-heading">Log in</h2>
-            </div>
-            <br>
-            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-              <div class="mb-3">
-                <%= f.email_field :email, placeholder: "Email", class: "form-control", autocomplete: "email" %>
-              </div>
-              <div class="mb-3">
-                <%= f.password_field :password, placeholder: "Password", class: "form-control", autocomplete: "current-password" %>
-              </div>
-              <div class="form-group mb-3 field text-center">
-                <%= f.radio_button :role, 'artist' %>
-                <%= f.label :role, 'Artist' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <%= f.radio_button :role, 'manager' %>
-                <%= f.label :role, 'Manager' %>
-              </div>
-              <div class="mb-3">
-                <% if devise_mapping.rememberable? %>
-                  <div class="field">
-                    <%= f.check_box :remember_me %>
-                    <%= f.label :remember_me %>
-                  </div>
-                <% end %>
-              </div>
-              <div class="actions mb-3 actions d-flex justify-content-center">
-                <%= f.submit "Log in", class: "btn btn-outline-primary" %>
+<div class="container-fluid">
+  <div class="d-flex justify-content-center">
+    <div class="rounded-3">
+      <div class="p-4 p-md-5">
+        <div class="d-flex justify-content-center">
+          <h2 class="signup-heading">Log in</h2>
+        </div>
+        <br>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="mb-3">
+            <%= f.email_field :email, placeholder: "Email", class: "form-control", autocomplete: "email" %>
+          </div>
+          <div class="mb-3">
+            <%= f.password_field :password, placeholder: "Password", class: "form-control", autocomplete: "current-password" %>
+          </div>
+          <div class="form-group mb-3 field text-center">
+            <%= f.radio_button :role, User::ARTIST %>
+            <%= f.label :role, User::ARTIST %>
+            <%= f.radio_button :role, User::MANAGER %>
+            <%= f.label :role, User::MANAGER %>
+          </div>
+          <div class="mb-3">
+            <% if devise_mapping.rememberable? %>
+              <div class="field">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
               </div>
             <% end %>
-                <%= render "devise/shared/links" %>
           </div>
-        </div>
+          <div class="actions mb-3 actions d-flex justify-content-center">
+            <%= f.submit "Log in", class: "btn btn-outline-primary" %>
+          </div>
+        <% end %>
+            <%= render "devise/shared/links" %>
+      </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>

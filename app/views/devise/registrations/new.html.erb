@@ -1,58 +1,36 @@
 <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="container-fluid">
-    <div class="d-flex justify-content-center">
-        <div class="rounded-3">
-          <div class="p-4 p-md-5">
-            <div class="d-flex justify-content-center">
-              <h2 class="signup-heading">Sign up</h2>
-            </div>
-            <br>
-            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-              <div class="mb-3">
-                <%= f.email_field :email, placeholder: "Email", class: "form-control", autocomplete: "email" %>
-              </div>
-              <div class="mb-3">
-                <%= f.password_field :password, placeholder: "Password", class: "form-control", autocomplete: "new-password" %>
-              </div>
-              <div class="mb-3">
-                <%= f.password_field :password_confirmation, placeholder: "Confirm Password", class: "form-control", autocomplete: "new-password" %>
-              </div>
-              <div class="form-group mb-3 field text-center">
-                <%= f.radio_button :role, 'artist' %>
-                <%= f.label :role, 'Artist' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <%= f.radio_button :role, 'manager' %>
-                <%= f.label :role, 'Manager' %>
-              </div>
-              <div class="mb-3 actions d-flex justify-content-center">
-                <%= f.submit "Sign up", class: "btn btn-outline-primary" %>
-              </div>
-              <div class="text-center ">Already have an account? <a href="http://localhost:3000/users/sign_in">Login here</a></div>
-            <% end %>
-          </div>
+<div class="container-fluid">
+  <div class="d-flex justify-content-center">
+    <div class="rounded-3">
+      <div class="p-4 p-md-5">
+        <div class="d-flex justify-content-center">
+          <h2 class="signup-heading">Sign up</h2>
         </div>
+        <br>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <div class="mb-3">
+            <%= f.email_field :email, placeholder: "Email", class: "form-control", autocomplete: "email" %>
+          </div>
+          <div class="mb-3">
+            <%= f.password_field :password, placeholder: "Password", class: "form-control", autocomplete: "new-password" %>
+          </div>
+          <div class="mb-3">
+            <%= f.password_field :password_confirmation, placeholder: "Confirm Password", class: "form-control", autocomplete: "new-password" %>
+          </div>
+          <div class="form-group mb-3 field text-center">
+            <%= f.radio_button :role, User::ARTIST %>
+            <%= f.label :role, User::ARTIST  %>
+            <%= f.radio_button :role, User::MANAGER %>
+            <%= f.label :role, User::MANAGER %>
+          </div>
+          <div class="mb-3 actions d-flex justify-content-center">
+            <%= f.submit "Sign up", class: "btn btn-outline-primary" %>
+          </div>
+          <div class="text-center ">Already have an account?
+            <%= link_to 'Login Here', new_user_session_path %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  <%#= render "devise/shared/links" %>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>

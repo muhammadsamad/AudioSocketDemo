@@ -15,4 +15,8 @@ module AuditionHelper
       return "asc"
     end
   end
+
+  def statustabs(column, status)
+    link_to status, status: status
+  end
 end

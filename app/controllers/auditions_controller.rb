@@ -24,6 +24,14 @@ class AuditionsController < ApplicationController
     AuditionMailer.assign_audition(@audition).deliver_later if @audition.update(assigned_to: params[:assigned_to])
   end
 
+  def my_results
+    auditions_index
+    respond_to do |format|
+      format.html
+      format.csv { send_data @auditions.to_csv }
+    end
+  end
+
   private
 
   def set_audition

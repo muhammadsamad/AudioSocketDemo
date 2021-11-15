@@ -1,0 +1,46 @@
+<div class="mb-5">
+  <%= form_with(url: auditions_path, method: :get) do |f| %>
+    <%= f.text_field :query, class: 'search pb-2 mb-1', placeholder: 'Search by Name, Artist, Email...' %>
+    <%= f.submit "Search", class: 'btn btn-outline-secondary mt-1' %>
+  <% end %>
+</div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col"><%= sortable "firstname", "Name" %></th>
+      <th scope="col"><%= sortable "artist_name" %></th>
+      <th scope="col"><%= sortable "email" %></th>
+      <th scope="col"><%= sortable "genre" %></th>
+      <th scope="col"><%= sortable "created_at" %></th>
+      <th scope="col">Assigned_to</th>
+      <th scope="col"><%= sortable "status" %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @auditions.each do |audition| %>
+      <tr scope="row">
+        <td><%= audition.id  %></td>
+        <td>
+          <a>
+            <%= link_to audition.firstname + audition.lastname, audition_path(audition.id), data: {bs_toggle: 'modal', bs_target: '#newUserModal', remote: true} %>
+          </a>
+        </td>
+        <td><%= audition.artist_name %></td>
+        <td><%= audition.email %></td>
+        <td><%= audition.genre.join(', ') %></td>
+        <td><%= audition.created_at.strftime("%d %B %y %I:%M %p") %></td>
+        <% if audition.assigned_to %>
+          <td>
+            <%= select_tag(audition.id, options_for_select(User.all.where(role: 1).map { |u| [u.email] }, selected: audition.assigned_to), class: "select", prompt: "Select", remote: true) %>
+          </td>
+        <% else %>
+          <td>
+            <%= select_tag(audition.id, options_for_select(User.all.where(role: 1).map { |u| [u.email] }), class: "select", prompt: "Select", remote: true) %>
+          </td>
+        <% end %>
+        <td><%= audition.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

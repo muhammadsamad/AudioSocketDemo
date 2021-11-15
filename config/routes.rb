@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :auditions, only: [:new, :create]
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :auditions
+  get '/assigned_to_update', to: "auditions#assigned_to_update"
 end

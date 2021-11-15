@@ -12,5 +12,5 @@ ActiveStorage.start();
 require("jquery");
 require("@nathanvda/cocoon");
 import "bootstrap";
-require("packs/audition-form");
+require("packs/audition");
 require("packs/select2");

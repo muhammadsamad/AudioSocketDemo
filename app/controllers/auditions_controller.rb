@@ -19,6 +19,14 @@ class AuditionsController < ApplicationController
     end
   end
 
+  def my_results
+    auditions_index
+    respond_to do |format|
+      format.html
+      format.csv { send_data @auditions.to_csv }
+    end
+  end
+
   def assigned_to_update
     @audition = Audition.find(params[:audition_id])
     @audition[:assigned_to] = params[:assigned_to]

@@ -1,4 +1,5 @@
 class Audition < ApplicationRecord
+  require 'csv'
   include PgSearch::Model
   pg_search_scope :search_by,
                   against: [:firstname, :lastname, :email, :status, :genre, :created_at, :id, :artist_name],
@@ -27,6 +28,24 @@ class Audition < ApplicationRecord
 
   after_initialize :default_email_status, if: :new_record?
 
+  def self.to_csv
+    attributes = %w{id name artist_name email genres formatted_created_at assigned_to status}
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.find_each do |audition|
+        csv << attributes.map{ |attr| audition.send(attr) }
+      end
+    end
+  end
+
+  def self.search(query, sort, direction, status)
+    scope = self.all
+    scope = scope.search_by(query) if query.present?
+    scope = scope.order("#{sort} #{direction}") if sort.present?
+    scope = scope.find_status(status) if status.present?
+    scope
+  end
+
   def default_email_status
     self.status ||= PENDING
   end
@@ -41,14 +60,6 @@ class Audition < ApplicationRecord
 
   def formatted_created_at
     created_at.strftime("%d %B %y %I:%M %p")
-  end
-
-  def self.search(query, sort, direction, status)
-    scope = self.all
-    scope = scope.search_by(query) if query.present?
-    scope = scope.order("#{sort} #{direction}") if sort.present?
-    scope = scope.find_status(status) if status.present?
-    scope
   end
 
   def manager_assigned(audition)

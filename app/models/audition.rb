@@ -10,7 +10,6 @@ class Audition < ApplicationRecord
             'Avantgarde', 'Bass', 'Blues', 'Cabaret', 'Celtic Chamber', 'Chanson', 'Chorus', 'Christian Rap',
             'Cinematic', 'Classical', 'Classic Rock', 'Club', 'Comedy', 'Country', 'Cult'].freeze
   SOURCES = ['Facebook', 'Instagram', 'Twitter', 'Other'].freeze
-
   PENDING = "Pending".freeze
   ACCEPTED = "Accepted".freeze
   REJECTED = "Rejected".freeze

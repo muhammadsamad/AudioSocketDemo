@@ -1,4 +1,10 @@
 class AuditionsController < ApplicationController
+  include Auditions
+
+  def index
+    auditions_index
+  end
+
   def new
     @audition = Audition.new
     @links = @audition.links.build
@@ -10,6 +16,14 @@ class AuditionsController < ApplicationController
       redirect_to new_audition_path
     else
       render :new
+    end
+  end
+
+  def assigned_to_update
+    @audition = Audition.find(params[:audition_id])
+    @audition[:assigned_to] = params[:assigned_to]
+    if @audition.save
+      AuditionMailer.with(audition: @audition).assign_audition(@audition).deliver_now
     end
   end
 

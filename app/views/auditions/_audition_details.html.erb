@@ -1,0 +1,95 @@
+<div class="modal-header">
+  <div class="modal-title" id="newUserModalLabel">
+    <strong class="text-uppercase"><%= audition.firstname + ' ' + audition.lastname %></strong>
+    <i class="ps-3"><%= audition.status %></i>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col">
+      First Name
+    </div>
+    <div class="col">
+      <%= audition.firstname %>
+    </div>
+  </div>
+  <div class="row pt-2">
+    <div class="col">
+      Last Name
+    </div>
+    <div class="col">
+      <%= audition.lastname %>
+    </div>
+  </div>
+  <div class="row pt-2">
+    <div class="col">
+      Email
+    </div>
+    <div class="col">
+      <%= audition.email %>
+    </div>
+  </div>
+  <div class="row pt-2">
+    <div class="col">
+      Artist Name
+    </div>
+    <div class="col">
+      <%= audition.artist_name %>
+    </div>
+  </div>
+  <div class="row pt-2">
+    <div class="col">
+      Track Links
+    </div>
+    <div class="col">
+      <% audition.links.each do |links| %>
+        <div class="col-md-6">
+          <a href="<%= links.link_field %>"><%= links.link_field %></a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row pt-2">
+    <div class="col">
+      Submitted at
+    </div>
+    <div class="col">
+      <%= audition.created_at.strftime("%d %B %y %I:%M %p")  %>
+    </div>
+  </div>
+  <div class="row pt-2">
+    <div class="col">
+      Genres
+    </div>
+    <div class="col">
+      <%= audition.genre.join(', ')  %>
+    </div>
+  </div>
+  <div class="row pt-2">
+    <div class="col">
+      Heard From
+    </div>
+    <% if audition.media_other %>
+      <div class="col">
+        <%= audition.media_other %>
+      </div>
+    <% else %>
+      <div class="col">
+        <%= audition.media %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row pt-2">
+    <div class="col">
+      Additional Info
+    </div>
+    <div class="col">
+      <%= audition.info %>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <%= link_to 'Accept', auditions_path, class: "btn btn-outline-success accept", value: Audition::ACCEPTED , id: audition.id, data: {bs_target: '#exampleModal', bs_toggle: 'modal'} %>
+  <%= link_to 'Reject', auditions_path, class: "btn btn-outline-warning reject", value: Audition::REJECTED , id: audition.id, data: {bs_target: '#exampleModal', bs_toggle: 'modal'} %>
+  <%= link_to 'Delete', auditions_path, class: "btn btn-outline-danger delete", value: Audition::DELETED , id: audition.id, data: {bs_target: '#exampleModal', bs_toggle: 'modal'} %>
+</div>

@@ -19,6 +19,13 @@ class AuditionsController < ApplicationController
     end
   end
 
+  def show
+    @audition = Audition.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def my_results
     auditions_index
     respond_to do |format|
@@ -32,6 +39,15 @@ class AuditionsController < ApplicationController
     @audition[:assigned_to] = params[:assigned_to]
     if @audition.save
       AuditionMailer.with(audition: @audition).assign_audition(@audition).deliver_now
+    end
+  end
+
+  def status_update
+    @audition = Audition.find(params[:audition_id])
+    @audition[:status] = params[:status]
+    @audition[:email_description] = params[:email_description]
+    if @audition.save
+      AuditionMailer.with(audition: @audition).audition_status_email(@audition).deliver_now
     end
   end
 

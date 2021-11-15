@@ -26,4 +26,15 @@ $(document).ready(function() {
   });
 
   check_to_hide_or_show_add_link();
+
+  $('.select').on('change', function() {
+    $.ajax({
+      url: '/assigned_to_update',
+      type:'GET',
+      data: {
+        audition_id: $(this).attr("id"),
+        assigned_to: this.value,
+      }
+    });
+  });
 });

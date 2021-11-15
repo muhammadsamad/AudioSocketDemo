@@ -20,12 +20,28 @@ class AuditionsController < ApplicationController
     end
   end
 
+  def show
+    @audition = Audition.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def update
     AuditionMailer.assign_audition(@audition).deliver_later if @audition.update(assigned_to: params[:assigned_to])
   end
 
   def format_csv
     send_data @auditions.to_csv
+  end
+
+  def status_update
+    @audition = Audition.find(params[:audition_id])
+    @audition[:status] = params[:status]
+    @audition[:email_description] = params[:email_description]
+    if @audition.save
+      AuditionMailer.with(audition: @audition).audition_status_email(@audition).deliver_now
+    end
   end
 
   private
@@ -37,6 +53,7 @@ class AuditionsController < ApplicationController
     @auditions = Audition.search(params[:query], params[:sort], params[:direction], params[:status])
   end
 
+  private
   def audition_params
     params.require(:audition).permit(:firstname, :lastname, :email, :artist_name,
                                     :link, :media, :media_other, :info, :assigned_to,

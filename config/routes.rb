@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   resources :auditions do
     get '/format_csv.csv', to: 'auditions#format_csv', as: :format_csv, defaults: { format: 'csv' }, on: :collection
   end
+  get '/status_update', to: 'auditions#status_update'
+  mount Ckeditor::Engine => '/ckeditor'
 end

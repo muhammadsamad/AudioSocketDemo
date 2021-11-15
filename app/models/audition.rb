@@ -59,6 +59,16 @@ class Audition < ApplicationRecord
     self.status ||= PENDING
   end
 
+  def self.to_csv
+    attributes = %w{id name artist_name email genres submitted assigned_to status}
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.find_each do |audition|
+        csv << attributes.map{ |attr| audition.send(attr) }
+      end
+    end
+  end
+
   def name
     "#{firstname} #{lastname}"
   end

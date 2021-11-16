@@ -46,7 +46,7 @@ class AuditionsController < ApplicationController
     @audition[:email_description] = params[:email_description]
     if @audition.save
       unless @audition[:status] == "Deleted"
-      User.invite!(email: @audition[:email], email_content: @audition[:email_description], update_status: @audition[:status])
+        User.invite!(email: @audition[:email], email_content: @audition[:email_description], update_status: @audition[:status], role: "artist")
       end
     end
   end

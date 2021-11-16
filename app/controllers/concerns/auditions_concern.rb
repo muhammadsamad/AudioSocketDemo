@@ -1,4 +1,4 @@
-module Auditions
+module AuditionsConcern
   extend ActiveSupport::Concern
 
   def auditions_index

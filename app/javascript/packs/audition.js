@@ -32,7 +32,7 @@ $(document).ready(function() {
       url: '/assigned_to_update',
       type:'GET',
       data: {
-        audition_id: $(this).attr("id"),
+        id: $(this).attr("id"),
         assigned_to: this.value,
       }
     });
@@ -73,7 +73,7 @@ $(document).on("click", ".modal-footer a", function(){
       url: '/status_update',
       type:'GET',
       data: {
-        audition_id: audition_id,
+        id: audition_id,
         status: status,
         email_description: email_description
       },

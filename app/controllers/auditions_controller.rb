@@ -1,5 +1,6 @@
 class AuditionsController < ApplicationController
-  include Auditions
+  include AuditionsConcern
+  before_action :set_audition, only: %i[ show assigned_to_update status_update ]
 
   def index
     auditions_index
@@ -20,7 +21,6 @@ class AuditionsController < ApplicationController
   end
 
   def show
-    @audition = Audition.find(params[:id])
     respond_to do |format|
       format.js
     end
@@ -35,7 +35,6 @@ class AuditionsController < ApplicationController
   end
 
   def assigned_to_update
-    @audition = Audition.find(params[:audition_id])
     @audition[:assigned_to] = params[:assigned_to]
     if @audition.save
       AuditionMailer.with(audition: @audition).assign_audition(@audition).deliver_now
@@ -43,7 +42,6 @@ class AuditionsController < ApplicationController
   end
 
   def status_update
-    @audition = Audition.find(params[:audition_id])
     @audition[:status] = params[:status]
     @audition[:email_description] = params[:email_description]
     if @audition.save
@@ -54,6 +52,10 @@ class AuditionsController < ApplicationController
   end
 
   private
+  def set_audition
+    @audition = Audition.find(params[:id])
+  end
+
   def audition_params
     params.require(:audition).permit(:firstname, :lastname, :email, :artist_name,
                                     :link, :media, :media_other, :info,

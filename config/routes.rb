@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get '/myresults.csv', to: 'auditions#my_results', :as => :myresults
   get '/status_update', to: 'auditions#status_update'
   mount Ckeditor::Engine => '/ckeditor'
+  root to: "auditions#new"
 end

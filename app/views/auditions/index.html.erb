@@ -5,7 +5,11 @@
   <% end %>
 </div>
 <%= render 'tabs' %>
+<<<<<<< HEAD
 <%= link_to "Export csv", format_csv_auditions_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
+=======
+<%= link_to "Export csv", auditions_csv_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
+>>>>>>> a414a5c ( Audition Details Changing status, changes applied)
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -23,7 +27,7 @@
     <% @auditions.each do |audition| %>
       <tr scope="row">
         <td><%= audition.id %></td>
-        <td><%= audition.name %></td>
+        <td><%= audition.name, data: {bs_toggle: 'modal', bs_target: '#new-user-modal', remote: true} %></td>
         <td><%= audition.artist_name %></td>
         <td><%= audition.email %></td>
         <td><%= audition.genres %></td>
@@ -35,16 +39,16 @@
   </tbody>
 </table>
 <!--Status Modal -->
-<div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="new-user-modal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div id="auditionDetails">
+      <div id="audition-details">
       </div>
     </div>
   </div>
 </div>
 <!--Email Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="example-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div id="email-content">

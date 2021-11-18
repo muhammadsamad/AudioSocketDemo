@@ -80,7 +80,7 @@ $(document).on("click", ".modal-footer a", function(){
       url: '/status_update',
       type:'GET',
       data: {
-        audition_id: audition_id,
+        id: audition_id,
         status: status,
         email_description: email_description
       },

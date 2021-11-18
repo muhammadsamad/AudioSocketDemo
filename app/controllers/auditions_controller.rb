@@ -25,15 +25,13 @@ class AuditionsController < ApplicationController
   end
 
   def my_results
-    auditions_index
+    @auditions = Audition.index_finder(params[:query], params[:sort], params[:direction], params[:status])
     respond_to do |format|
-      format.html
       format.csv { send_data @auditions.to_csv }
     end
   end
 
   private
-
   def set_audition
     @audition = Audition.find(params[:id])
   end

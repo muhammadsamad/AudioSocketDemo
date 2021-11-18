@@ -31,7 +31,10 @@ $(document).ready(function() {
     $.ajax({
       url: '/assigned_to_update',
       type:'GET',
+      url: '/update',
+      type:'PATCH',
       data: {
+        audition_id: $(this).attr("id"),
         id: $(this).attr("id"),
         assigned_to: this.value,
       }
@@ -70,8 +73,8 @@ $(document).on("click", ".modal-footer a", function(){
     let status = val;
     let email_description = email_content ;
     $.ajax({
-      url: '/status_update',
-      type:'GET',
+      url: '/update_status_email',
+      type:'PATCH',
       data: {
         id: audition_id,
         status: status,

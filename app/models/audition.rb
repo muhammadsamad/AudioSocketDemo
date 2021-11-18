@@ -1,4 +1,5 @@
 class Audition < ApplicationRecord
+  extend IndexConcern
   require 'csv'
   include PgSearch::Model
   pg_search_scope :search,

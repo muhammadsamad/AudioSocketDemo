@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :auditions
-  get '/assigned_to_update', to: "auditions#assigned_to_update"
-  get '/myresults.csv', to: 'auditions#my_results', :as => :myresults
-  get '/status_update', to: 'auditions#status_update'
+  patch '/update', to: "auditions#update"
+  get '/auditions_csv', to: 'auditions#auditions_csv', as: :auditions_csv
+  patch '/update_status_email', to: 'auditions#update_status_email'
   mount Ckeditor::Engine => '/ckeditor'
-  root to: "auditions#new"
 end

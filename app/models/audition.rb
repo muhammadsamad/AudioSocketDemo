@@ -33,6 +33,10 @@ class Audition < ApplicationRecord
     self.status ||= PENDING
   end
 
+  def name
+    "#{firstname} #{lastname}"
+  end
+
   def genres_join
     genre.join(', ')
   end

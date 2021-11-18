@@ -8,9 +8,9 @@ class User < ApplicationRecord
   MANAGER = 'Manager'.freeze
   ROLES = [ARTIST, MANAGER].freeze
 
-  validates :password, format: { with: /(?=.{8,})(?=.*[A-Z])(?=.*[[:^alnum:]])/}
-
   enum role: ROLES
+
+  validates :password, format: { with: /(?=.{8,})(?=.*[A-Z])(?=.*[[:^alnum:]])/}
 
   scope :managers, -> { where(role: MANAGER) }
 end

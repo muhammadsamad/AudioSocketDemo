@@ -1,0 +1,8 @@
+<span class="btn btn-lg btn-light col">
+  <%= statustabs "status", status %>
+  <% if status == "All" %>
+    <%= "("+(Audition.all.count).to_s + ")" %>
+  <% else %>
+    <%= "("+(Audition.where(status: status).count).to_s + ")" %>
+  <% end %>
+</span>

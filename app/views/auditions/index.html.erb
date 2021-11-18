@@ -4,28 +4,7 @@
     <%= f.submit "Search", class: 'btn btn-outline-secondary mt-1' %>
   <% end %>
 </div>
-<div class="row mb-2">
-  <span class="btn btn-lg btn-light col">
-    <%= statustabs "status", "All" %>
-    <%= +"("+(Audition.all.count).to_s + ")" %>
-  </span>
-  <span class="btn btn-lg btn-light col">
-    <%= statustabs "status", "Pending" %>
-    <%= +"("+(Audition.where(status: "Pending").count).to_s + ")" %>
-  </span>
-  <span class="btn btn-lg btn-light col">
-    <%= statustabs "status", "Accepted" %>
-    <%= +"("+(Audition.where(status: "Accepted").count).to_s + ")" %>
-  </span>
-  <span class="btn btn-lg btn-light col">
-    <%= statustabs "status", "Rejected" %>
-    <%= +"("+(Audition.where(status: "Rejected").count).to_s + ")" %>
-  </span>
-  <span class="btn btn-lg btn-light col">
-    <%= statustabs "status", "Deleted" %>
-    <%= +"("+(Audition.where(status: "Deleted").count).to_s + ")" %>
-  </span>
-</div>
+<%= render 'tabs' %>
 <%= link_to "Export csv", myresults_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
 <table class="table table-bordered">
   <thead>
@@ -41,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @auditions.each do |audition| %>
+    <% @auditions.find_each do |audition| %>
       <tr scope="row">
         <td><%= audition.id %></td>
         <td><%= audition.name %></td>

@@ -1,6 +1,7 @@
 class Audition < ApplicationRecord
   extend IndexConcern
   require 'csv'
+
   include PgSearch::Model
   pg_search_scope :search,
                   against: [:firstname, :lastname, :email, :status, :genre, :created_at, :assigned_to, :id, :artist_name],
@@ -28,7 +29,7 @@ class Audition < ApplicationRecord
 
   accepts_nested_attributes_for :links
 
-  after_initialize :default_email_status, :if => :new_record?
+  after_initialize :default_email_status, if: :new_record?
   def default_email_status
     self.status ||= PENDING
   end

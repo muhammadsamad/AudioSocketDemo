@@ -1,8 +1,8 @@
 class AuditionsController < ApplicationController
-  include Auditions
+  before_action :set_audition, only: %i[ update ]
 
   def index
-    auditions_index
+    @auditions = Audition.index_finder(params[:query], params[:sort], params[:direction], params[:status])
   end
 
   def new
@@ -19,15 +19,19 @@ class AuditionsController < ApplicationController
     end
   end
 
-  def assigned_to_update
-    @audition = Audition.find(params[:audition_id])
-    @audition[:assigned_to] = params[:assigned_to]
+  def update
+    @audition.assigned_to = params[:assigned_to]
     if @audition.save
-      AuditionMailer.with(audition: @audition).assign_audition(@audition).deliver_now
+      AuditionMailer.with(audition: @audition).assign_audition(@audition).deliver_later
     end
   end
 
   private
+
+  def set_audition
+    @audition = Audition.find(params[:audition_id])
+  end
+
   def audition_params
     params.require(:audition).permit(:firstname, :lastname, :email, :artist_name,
                                     :link, :media, :media_other, :info,

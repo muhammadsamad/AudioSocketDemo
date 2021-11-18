@@ -1,4 +1,6 @@
 class Audition < ApplicationRecord
+  extend IndexConcern
+  require 'csv'
   include PgSearch::Model
   pg_search_scope :search,
                   against: [:firstname, :lastname, :email, :status, :genre, :created_at, :assigned_to, :id, :artist_name],
@@ -26,9 +28,38 @@ class Audition < ApplicationRecord
 
   accepts_nested_attributes_for :links
 
-  after_initialize :default_email_status, :if => :new_record?
+  after_initialize :default_email_status, if: :new_record?
   def default_email_status
     self.status ||= PENDING
   end
 
+  def self.to_csv
+    attributes = %w{id name artist_name email genres submitted assigned_to status}
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.find_each do |audition|
+        csv << attributes.map{ |attr| audition.send(attr) }
+      end
+    end
+  end
+
+  def name
+    "#{firstname} #{lastname}"
+  end
+
+  def genres
+    "#{genre.join(', ')}"
+  end
+
+  def submitted
+    "#{created_at.strftime('%d %B %y %I:%M %p')}"
+  end
+
+  def genres_join
+    genre.join(', ')
+  end
+
+  def created_at_format
+    created_at.strftime("%d %B %y %I:%M %p")
+  end
 end

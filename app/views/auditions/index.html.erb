@@ -20,23 +20,19 @@
   <tbody>
     <% @auditions.each do |audition| %>
       <tr scope="row">
-        <td><%= audition.id  %></td>
-        <td>
-          <a>
-            <%= link_to audition.firstname + audition.lastname, audition_path(audition.id), data: {bs_toggle: 'modal', bs_target: '#newUserModal', remote: true} %>
-          </a>
-        </td>
+        <td><%= audition.id %></td>
+        <td><%= link_to audition::name, audition_path(audition.id) %></td>
         <td><%= audition.artist_name %></td>
         <td><%= audition.email %></td>
-        <td><%= audition.genre.join(', ') %></td>
-        <td><%= audition.created_at.strftime("%d %B %y %I:%M %p") %></td>
+        <td><%= audition::genres_join %></td>
+        <td><%= audition::created_at_format %></td>
         <% if audition.assigned_to %>
           <td>
-            <%= select_tag(audition.id, options_for_select(User.all.where(role: 1).map { |u| [u.email] }, selected: audition.assigned_to), class: "select", prompt: "Select", remote: true) %>
+            <%= select_tag(audition.id, options_for_select(assigned_to_map(User.manager_role) , selected: audition.assigned_to), class: "select", prompt: "Select", remote: true) %>
           </td>
         <% else %>
           <td>
-            <%= select_tag(audition.id, options_for_select(User.all.where(role: 1).map { |u| [u.email] }), class: "select", prompt: "Select", remote: true) %>
+            <%= select_tag(audition.id, options_for_select(assigned_to_map(User.manager_role)), class: "select", prompt: "Select", remote: true) %>
           </td>
         <% end %>
         <td><%= audition.status %></td>

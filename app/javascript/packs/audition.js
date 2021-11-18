@@ -29,8 +29,8 @@ $(document).ready(function() {
 
   $('.select').on('change', function() {
     $.ajax({
-      url: '/assigned_to_update',
-      type:'GET',
+      url:'/update',
+      type:'PATCH',
       data: {
         audition_id: $(this).attr("id"),
         assigned_to: this.value,

@@ -5,7 +5,7 @@ module AuditionHelper
   end
 
   def audition_assigned(column)
-    column.map { |u| [u.email] }
+    column.map(&:email)
   end
 
   def direction(column, sort, order)

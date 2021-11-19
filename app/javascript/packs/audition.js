@@ -34,9 +34,13 @@ $(document).ready(function() {
       data: {
         assigned_to: this.value
       },
-     success: function(data)
+     success: function()
      {
       alert("Audition has been assigned");
+     },
+     error: function()
+     {
+      alert("Audition has not been assigned");
      }
     });
   });

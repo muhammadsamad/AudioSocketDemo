@@ -21,12 +21,12 @@
     <% @auditions.each do |audition| %>
       <tr scope="row">
         <td><%= audition.id %></td>
-        <td><%= audition::name %></td>
+        <td><%= audition.name %></td>
         <td><%= audition.artist_name %></td>
         <td><%= audition.email %></td>
-        <td><%= audition::genres %></td>
-        <td><%= audition::formatted_created_at %></td>
-        <td><%= select_tag(audition.id, options_for_select(audition_assigned(User.managers) , selected: Audition::manager_assigned(audition)), class: "select", prompt: "Select", remote: true) %></td>
+        <td><%= audition.genres %></td>
+        <td><%= audition.formatted_created_at %></td>
+        <td><%= select_tag(audition.id, options_for_select(audition_assigned(User.managers) , selected: audition.manager_assigned(audition)), class: "select", prompt: "Select", remote: true) %></td>
         <td><%= audition.status %></td>
       </tr>
     <% end %>

@@ -21,20 +21,12 @@
     <% @auditions.each do |audition| %>
       <tr scope="row">
         <td><%= audition.id %></td>
-        <td><%= link_to audition::name, audition_path(audition.id) %></td>
+        <td><%= link_to audition::name, "" %></td>
         <td><%= audition.artist_name %></td>
         <td><%= audition.email %></td>
-        <td><%= audition::genres_join %></td>
-        <td><%= audition::created_at_format %></td>
-        <% if audition.assigned_to %>
-          <td>
-            <%= select_tag(audition.id, options_for_select(assigned_to_map(User.manager_role) , selected: audition.assigned_to), class: "select", prompt: "Select", remote: true) %>
-          </td>
-        <% else %>
-          <td>
-            <%= select_tag(audition.id, options_for_select(assigned_to_map(User.manager_role)), class: "select", prompt: "Select", remote: true) %>
-          </td>
-        <% end %>
+        <td><%= audition::genres %></td>
+        <td><%= audition::formatted_created_at %></td>
+        <td><%= select_tag(audition.id, options_for_select(audition_assigned(User.managers) , selected: Audition::manager_assigned(audition)), class: "select", prompt: "Select", remote: true) %></td>
         <td><%= audition.status %></td>
       </tr>
     <% end %>

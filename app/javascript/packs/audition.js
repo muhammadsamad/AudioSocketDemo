@@ -29,12 +29,15 @@ $(document).ready(function() {
 
   $('.select').on('change', function() {
     $.ajax({
-      url:'/update',
-      type:'PATCH',
+      url: "/auditions/" + $(this).attr("id"),
+      type: 'PATCH',
       data: {
-        audition_id: $(this).attr("id"),
-        assigned_to: this.value,
-      }
+        assigned_to: this.value
+      },
+     success: function(data)
+     {
+      alert("Audition has been assigned");
+     }
     });
   });
 });

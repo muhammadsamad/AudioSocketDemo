@@ -1,6 +1,6 @@
 class Audition < ApplicationRecord
   include PgSearch::Model
-  pg_search_scope :search,
+  pg_search_scope :search_by,
                   against: [:firstname, :lastname, :email, :status, :genre, :created_at, :id, :artist_name],
                   using: {
                     tsearch: { prefix: true, any_word: true}
@@ -44,9 +44,9 @@ class Audition < ApplicationRecord
     created_at.strftime("%d %B %y %I:%M %p")
   end
 
-  def self.search_with(query, sort, direction, status)
+  def self.search(query, sort, direction, status)
     scope = self.all
-    scope = scope.search(query) if query.present?
+    scope = scope.search_by(query) if query.present?
     scope = scope.order("#{sort} #{direction}") if sort.present?
     scope = scope.find_status(status) if status.present?
     scope

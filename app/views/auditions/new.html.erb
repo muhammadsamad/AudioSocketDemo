@@ -6,16 +6,16 @@
       </div>
       <%= form_with model: @audition, local: true do |f| %>
         <div class="mb-3">
-          <%= f.text_field :firstname, placeholder: "First Name", class: "form-control", autocomplete: "email", required: true %>
+          <%= f.text_field :firstname, placeholder: "First Name", class: "form-control", required: true %>
         </div>
         <div class="mb-3">
-          <%= f.text_field :lastname, placeholder: "Last Name", class: "form-control", autocomplete: "email", required: true %>
+          <%= f.text_field :lastname, placeholder: "Last Name", class: "form-control", required: true %>
         </div>
         <div class="mb-3">
-          <%= f.email_field :email, placeholder: "Email Address", class: "form-control", autocomplete: "email", required: true %>
+          <%= f.email_field :email, placeholder: "Email Address", class: "form-control", required: true %>
         </div>
         <div class="mb-3">
-          <%= f.text_field :artist_name, placeholder: "Artist Name", class: "form-control", autocomplete: "artist_name", required: true %>
+          <%= f.text_field :artist_name, placeholder: "Artist Name", class: "form-control", required: true %>
         </div>
         <div class="mb-3" id="link-fields">
           <%= f.fields_for :links do |t| %>
@@ -34,10 +34,10 @@
           <%= f.select :media, Audition::SOURCES, {}, class: "form-control", id: "media", required: true %>
         </div>
         <div class="mb-3" id="other-text-field">
-          <%= f.text_field :media_other, placeholder: "Enter Social Media", class: "form-control", autocomplete: "media_other" %>
+          <%= f.text_field :media_other, placeholder: "Enter Social Media", class: "form-control" %>
         </div>
         <div class="mb-3">
-          <%= f.text_area :info, placeholder: "Any Additional Info", class: "form-control", autocomplete: "link" %>
+          <%= f.text_area :info, placeholder: "Any Additional Info", class: "form-control" %>
         </div>
         <div class="mb-3 actions d-flex justify-content-center">
           <%= f.submit "Submit", class: "btn btn-outline-primary" %>

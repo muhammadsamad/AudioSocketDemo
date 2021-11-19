@@ -1,9 +1,8 @@
 class Audition < ApplicationRecord
-  extend IndexConcern
   require 'csv'
   include PgSearch::Model
   pg_search_scope :search,
-                  against: [:firstname, :lastname, :email, :status, :genre, :created_at, :assigned_to, :id, :artist_name],
+                  against: [:firstname, :lastname, :email, :status, :genre, :created_at, :id, :artist_name],
                   using: {
                     tsearch: { prefix: true, any_word: true}
                   }
@@ -37,11 +36,25 @@ class Audition < ApplicationRecord
     "#{firstname} #{lastname}"
   end
 
-  def genres_join
+  def genres
     genre.join(', ')
   end
 
-  def created_at_format
+  def formatted_created_at
     created_at.strftime("%d %B %y %I:%M %p")
   end
+
+  def self.Search(query, sort, direction, status)
+    scope = self.all
+    scope = scope.search(query) if query.present?
+    scope = scope.order("#{sort} #{direction}") if sort.present?
+    scope = scope.find_status(status) if status.present?
+    scope
+  end
+
+  def self.manager_assigned(audition)
+    audition.assigned_to
+  end
+
+  scope :find_status, ->(status) { where(status: status) }
 end

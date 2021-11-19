@@ -33,7 +33,7 @@ class Audition < ApplicationRecord
     attributes = %w{id name artist_name email genres formatted_created_at assigned_to status}
     CSV.generate(headers: true) do |csv|
       csv << attributes
-      all.find_each do |audition|
+      all.each do |audition|
         csv << attributes.map{ |attr| audition.send(attr) }
       end
     end

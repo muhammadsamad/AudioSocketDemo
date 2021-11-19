@@ -5,7 +5,7 @@
   <% end %>
 </div>
 <%= render 'tabs' %>
-<%= link_to "Export csv", myresults_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
+<%= link_to "Export csv", csv_result_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @auditions.find_each do |audition| %>
+    <% @auditions.each do |audition| %>
       <tr scope="row">
         <td><%= audition.id %></td>
         <td><%= audition.name %></td>

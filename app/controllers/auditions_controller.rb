@@ -2,7 +2,7 @@ class AuditionsController < ApplicationController
   before_action :set_audition, only: :update
 
   def index
-    @auditions = Audition.search_with(params[:query], params[:sort], params[:direction], params[:status])
+    @auditions = Audition.search(params[:query], params[:sort], params[:direction], params[:status])
   end
 
   def new

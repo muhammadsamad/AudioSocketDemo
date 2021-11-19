@@ -1,5 +1,4 @@
 class Audition < ApplicationRecord
-  require 'csv'
   include PgSearch::Model
   pg_search_scope :search,
                   against: [:firstname, :lastname, :email, :status, :genre, :created_at, :id, :artist_name],
@@ -28,6 +27,7 @@ class Audition < ApplicationRecord
   accepts_nested_attributes_for :links
 
   after_initialize :default_email_status, if: :new_record?
+
   def default_email_status
     self.status ||= PENDING
   end
@@ -44,7 +44,7 @@ class Audition < ApplicationRecord
     created_at.strftime("%d %B %y %I:%M %p")
   end
 
-  def self.Search(query, sort, direction, status)
+  def self.search_with(query, sort, direction, status)
     scope = self.all
     scope = scope.search(query) if query.present?
     scope = scope.order("#{sort} #{direction}") if sort.present?
@@ -52,7 +52,7 @@ class Audition < ApplicationRecord
     scope
   end
 
-  def self.manager_assigned(audition)
+  def manager_assigned(audition)
     audition.assigned_to
   end
 

@@ -2,7 +2,7 @@ class AuditionsController < ApplicationController
   before_action :set_audition, only: :update
 
   def index
-    @auditions = Audition.Search(params[:query], params[:sort], params[:direction], params[:status])
+    @auditions = Audition.search_with(params[:query], params[:sort], params[:direction], params[:status])
   end
 
   def new
@@ -22,9 +22,7 @@ class AuditionsController < ApplicationController
   end
 
   def update
-    if @audition.update(assigned_to: params[:assigned_to])
-      AuditionMailer.assign_audition(@audition).deliver_later
-    end
+    AuditionMailer.assign_audition(@audition).deliver_later if @audition.update(assigned_to: params[:assigned_to])
   end
 
   private

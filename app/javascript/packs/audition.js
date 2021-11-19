@@ -28,6 +28,7 @@ $(document).ready(function() {
   check_to_hide_or_show_add_link();
 
   $('.select').on('change', function() {
+    console.log("h");
     $.ajax({
       url: "/auditions/" + $(this).attr("id"),
       type: 'PATCH',
@@ -46,47 +47,42 @@ $(document).ready(function() {
   });
 });
 
-$(document).on("click", ".modal-footer a", function(){
-  let aud_id = $(this).attr("id");
-  let val = $(this).attr("value");
-  let email_content ;
-  if(val == "Accepted"){
-    let accept_email = "Hi [name]!Thanks for submitting music to Audiosocket, we have listened to your link and would love to work with you! Please sign in to our artist portal here. There, you can update your artist profile, submit music, artworks, etc. The more assets you can give us the better. Once submitted, our team will review and will start the ingestion into our catalog.Thanks! Music Licensing Coordinator"
-    let desc = CKEDITOR.instances['email_description'].setData(accept_email);
-    $(document).on("click", ".btn-email", function(){
-      desc = CKEDITOR.instances['email_description'].getData();
-      email_content = desc.slice(3,-5);
-      ajaxRequest(aud_id,val,email_content);
-    });
+$(document).on("click", ".modal-footer a", function(e){
+  e.preventDefault();
+  let id = $(this).attr("id");
+  let status = $(this).attr("value");
+  if(status == "Accepted"){
+    $("#email-accepted").removeClass("email-description");
+    CKEDITOR.replace( 'editor2' );
+    callingAJAX(id, status);
   }
-  else if(val == "Rejected"){
-    let reject_email = "Hello [name], Thank you for submitting an audition. After careful review, we’ve decided the music you submitted is not a match for our current needs. Please understand, that while your music may not be a match this time, it certainly might be in the future as our clients’ needs are constantly changing. With that in mind, we encourage you to submit new music again in the future. Have a great day!"
-    let desc = CKEDITOR.instances['email_description'].setData(reject_email);
-    $(document).on("click", ".btn-email", function(){
-      desc = CKEDITOR.instances['email_description'].getData();
-      email_content = desc.slice(3,-5);
-      ajaxRequest(aud_id,val,email_content);
-    });
+  else if(status == "Rejected"){
+    $("#email-rejected").removeClass("email-description");
+    callingAJAX(id, status);
   }
-  else if(val == "Deleted"){
-    ajaxRequest(aud_id,val);
-  }
-
-  function ajaxRequest(aud_id, val, email_content){
-    let audition_id = aud_id;
-    let status = val;
-    let email_description = email_content ;
-    $.ajax({
-      url: '/status_update',
-      type:'GET',
-      data: {
-        id: audition_id,
-        status: status,
-        email_description: email_description
-      },
-      success: function(data){
-        location.reload();
-      }
-    });
+  else if(status == "Deleted"){
+    ajaxStatusEmailRequest(id,status);
   }
 });
+
+function ajaxStatusEmailRequest(id, status, email_description){
+  $.ajax({
+    url: '/change_status_send_email',
+    type:'PATCH',
+    data: {
+      id: id,
+      status: status,
+      email_description: email_description
+    },
+    success: function(data){
+      // location.reload();
+    }
+  });
+}
+
+function callingAJAX(id, status){
+  $(document).on("click", ".btn-email", function(){
+    let email_description = (CKEDITOR.instances['email_description'].getData()).slice(3,-5);
+    ajaxStatusEmailRequest(id,status,email_description);
+  });
+}

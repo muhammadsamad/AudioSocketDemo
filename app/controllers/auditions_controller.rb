@@ -26,7 +26,6 @@ class AuditionsController < ApplicationController
     end
   end
 
-<<<<<<< HEAD
   def update
     AuditionMailer.assign_audition(@audition).deliver_later if @audition.update(assigned_to: params[:assigned_to])
   end
@@ -35,11 +34,10 @@ class AuditionsController < ApplicationController
     send_data @auditions.to_csv
   end
 
-  def status_update
-    @audition.status = params[:status]
-    @audition.email_description = params[:email_description]
-    if @audition.save
-      AuditionMailer.with(audition: @audition).audition_status_email(@audition).deliver_later
+  def change_status_send_email
+    if @audition.update(status: params[:status], email_description: params[:email_description])
+      flash[:notice] = "Status is changed and email has been sent to artist"
+      AuditionMailer.audition_status_email(@audition).deliver_later
     end
   end
 
@@ -54,7 +52,7 @@ class AuditionsController < ApplicationController
 
   def audition_params
     params.require(:audition).permit(:firstname, :lastname, :email, :artist_name,
-                                    :link, :media, :media_other, :info, :assigned_to,
+                                    :link, :media, :media_other, :info, :status, :email_description,
                                     links_attributes: [:id, :link_field, :_destroy], genre: [])
   end
 end

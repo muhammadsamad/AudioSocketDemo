@@ -2,5 +2,5 @@ Rails.application.routes.draw do
   devise_for :users
   resources :auditions
   patch '/update', to: "auditions#update"
-  get '/myresults.csv', to: 'auditions#my_results', as: :myresults
+  get '/csvresult.csv', to: 'auditions#csv_result', as: :csv_result
 end

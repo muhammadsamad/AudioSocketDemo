@@ -3,6 +3,6 @@
   <% if status == "All" %>
     <%= "("+(Audition.all.count).to_s + ")" %>
   <% else %>
-    <%= "("+(Audition.where(status: status).count).to_s + ")" %>
+    <%= "("+(Audition.status_tab(status).count).to_s + ")" %>
   <% end %>
 </span>

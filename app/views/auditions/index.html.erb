@@ -21,7 +21,7 @@
     <% @auditions.each do |audition| %>
       <tr scope="row">
         <td><%= audition.id %></td>
-        <td><%= link_to audition::name, "" %></td>
+        <td><%= audition::name %></td>
         <td><%= audition.artist_name %></td>
         <td><%= audition.email %></td>
         <td><%= audition::genres %></td>

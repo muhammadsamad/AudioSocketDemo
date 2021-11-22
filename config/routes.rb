@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :auditions, only: [:new, :create]
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :auditions
+  patch '/update', to: "auditions#update"
+  get '/auditions_csv', to: 'auditions#auditions_csv', as: :auditions_csv
+  patch '/update_status_email', to: 'auditions#update_status_email'
+  mount Ckeditor::Engine => '/ckeditor'
 end

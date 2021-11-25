@@ -1,0 +1,43 @@
+<%= link_to 'New Album', new_artist_detail_album_path(@artist_detail), class: "btn btn-outline-primary mb-5 float-right", data: {bs_toggle: 'modal', bs_target: '#new-album-modal', remote: true} %>
+<div class="sidebar">
+  <%= link_to "Music Section", artist_detail_albums_path(@artist_detail, @album) %>
+  <%= link_to "Profile", edit_artist_detail_path(@artist_detail) %>
+</div>
+<div class="content">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @albums.each do |album| %>
+        <tr scope="row">
+          <td class="col"><%= link_to album.name, album_tracks_path(album) %></td>
+          <% if album.album_status == false %>
+            <td class="col"><%= link_to 'Edit', edit_album_path(album), class: "btn btn-outline-success mb-5 float-right", data: {bs_toggle: 'modal', bs_target: '#edit-album-modal', remote: true}  %></td>
+            <td class="col"><%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
+          <% else %>
+            <td class="col">Can not be edited or deleted</td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="modal fade" id="new-album-modal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="artist-new-album-modal">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="edit-album-modal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="artist-edit-album-modal">
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,7 @@
     <%= javascript_include_tag Ckeditor.cdn_url %>
   </head>
   <body>
+    <%= render "shared/navbar" %>
     <%= render "shared/flash_messages" %>
     <%= yield %>
   </body>

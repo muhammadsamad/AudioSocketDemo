@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   enum role: ROLES
 
+  has_one :artist_detail
+
   validates :password, format: { with: /(?=.{8,})(?=.*[A-Z])(?=.*[[:^alnum:]])/}
 
   scope :manager_role, -> { where(role: MANAGER) }

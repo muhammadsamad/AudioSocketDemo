@@ -28,8 +28,13 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'pg_search'
 gem 'ckeditor'
 gem 'devise_invitable'
+# Rails 5.2 and Rails 6
+gem 'active_storage_validations'
+gem 'mini_magick'
 gem "image_processing"
 gem 'country_select'
+gem 'braintree', '~> 4.5'
+gem 'dotenv-rails', groups: [:development, :test]
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,5 +1,5 @@
 class ArtistDetailsController < ApplicationController
-  before_action :set_artist, only: %i[ edit update ]
+  before_action :set_artist, only: %i[ edit update transaction ]
 
   def new
     @artist_detail = ArtistDetail.new
@@ -23,6 +23,7 @@ class ArtistDetailsController < ApplicationController
     @artist_detail.email_address = current_user.email
     @artist_detail.user_id = current_user.id
     @artist_detail.artist_name = Audition.find_by_email(current_user.email).artist_name
+    @client_token = Payment.generate_token
   end
 
   def update
@@ -35,12 +36,26 @@ class ArtistDetailsController < ApplicationController
     end
   end
 
+  def transaction
+    payment = Payment.payment(params[:nonce])
+    if payment.success? || payment.transaction
+      @artist_detail.pro = true
+      @artist_detail.save
+      flash[:notice] = "Payment is done and Your account is upgraded"
+      redirect_to edit_artist_detail_path(@artist_detail)
+    else
+      flash[:error] = "Error occured during payment"
+      redirect_to edit_artist_detail_path(@artist_detail)
+    end
+  end
+
+
   private
     def set_artist
       @artist_detail = ArtistDetail.find_by_user_id(current_user.id)
     end
 
     def artist_detail_params
-      params.require(:artist_detail).permit(:artist_name, :email_address, :country, :bio, :website_link, :user_id, :profile, social_link: [])
+      params.require(:artist_detail).permit(:artist_name, :email_address, :country, :bio, :website_link, :user_id, :profile, :pro, social_link: [])
     end
 end

@@ -40,6 +40,17 @@
     </div>
   <% end %>
   <div>
-    <%= link_to 'Upgrade to Pro', " ", class: "btn btn-dark upgrade-pro" %>
+    <% if @artist_detail.pro == false %>
+      <%= link_to 'Upgrade to Pro', " ", class: "btn btn-dark upgrade-pro", data: {bs_toggle: 'modal', bs_target: '#payment-artist-modal', remote: true} %>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="modal fade" id="payment-artist-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= render 'braintree_payment' %>
+    </div>
   </div>
 </div>

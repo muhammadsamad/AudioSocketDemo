@@ -12,8 +12,6 @@
  *
  *= require_tree .
  *= require_self
+ *= require project
  */
 @import "bootstrap/scss/bootstrap";
-.display-none {
-  display: none;
-}

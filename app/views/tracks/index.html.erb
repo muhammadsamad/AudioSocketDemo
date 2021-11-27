@@ -1,0 +1,53 @@
+<%= link_to 'New Track', new_album_track_path(@album), class: "btn btn-outline-primary mb-5 float-right", data: {bs_toggle: 'modal', bs_target: '#new-track-modal', remote: true} %>
+<div class="artwork">
+  <%= image_tag @album.artwork, class: "artwork" %>
+</div>
+<h1>Tracks</h1>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Track</th>
+      <th>Status</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tracks.each do |track| %>
+      <tr scope="row">
+        <td><%= track.title %></td>
+        <td>
+          <% if track.audio.attached? && track.audio.audio? %>
+            <audio controls>
+              <source src="<%= rails_blob_url(track.audio) %>" type="<%= track.audio.content_type %>"/>
+            </audio>
+          <% end %>
+        </td>
+        <td><%= track.status %></td>
+        <% if track.status != "Submitted" %>
+          <td><%= link_to 'Edit', edit_track_path(track), class: "btn btn-outline-secondary mb-5 float-right", data: {bs_toggle: 'modal', bs_target: '#edit-track-modal', remote: true} %></td>
+        <% else %>
+          <td>Can not be editted</td>
+        <% end %>
+        <td><%= link_to 'Delete', track, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="modal fade" id="new-track-modal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="album-new-track-modal">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="edit-track-modal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="album-edit-track-modal">
+      </div>
+    </div>
+  </div>
+</div>

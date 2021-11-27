@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Change Track</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+  <%= form_for([@artist_detail, @album, @track]) do |form| %>
+    <% if @track.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@track.errors.count, "error") %> prohibited this track from being saved:</h2>
+        <ul>
+          <% @track.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title, class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= form.label :audio %>
+      <%= form.file_field :audio, direct_upload: true, class: "form-control" %>
+    </div>
+    <div class="actions modal-footer">
+      <%= form.submit 'Save to Album' , class: 'btn btn-outline-secondary' %>
+      <%= form.submit 'Submit' , class: 'btn btn-outline-success' %>
+    </div>
+  <% end %>
+</div>

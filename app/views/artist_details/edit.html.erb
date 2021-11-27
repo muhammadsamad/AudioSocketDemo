@@ -1,6 +1,17 @@
+<% content_for :artist_details_edit_js do %>
+  <script>
+    $(document).ready(function() {
+      $("#social-link").on('click',function(event) {
+        event.preventDefault();
+        $('.social').after($('<div><input class="form-control mb-1" name="artist_detail[social_link][]"></div>'));
+      });
+    });
+  </script>
+<% end %>
+
 <div class="sidebar">
   <%= link_to "Music Section", artist_detail_albums_path(@artist_detail) %>
-  <%= link_to "Profile", new_artist_detail_path %>
+  <%= link_to "Profile", edit_artist_detail_path(@artist_detail) %>
 </div>
 <div class="content">
   <%= form_with model: @artist_detail, url: artist_detail_path(@artist_detail), method: :patch, local: true do |form| %>
@@ -45,8 +56,6 @@
     <% end %>
   </div>
 </div>
-
-
 <div class="modal fade" id="payment-artist-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

@@ -13,4 +13,3 @@ require("@nathanvda/cocoon");
 import "bootstrap";
 require("packs/audition");
 require("packs/select2");
-require("packs/track");

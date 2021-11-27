@@ -86,5 +86,3 @@ $(document).on("click", ".modal-footer a", function(){
     });
   }
 });
-
-

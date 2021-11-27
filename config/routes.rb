@@ -11,4 +11,5 @@ Rails.application.routes.draw do
     end
   end
   post 'transaction', to: "artist_details#transaction", as: "transaction"
+  root to: "auditions#new"
 end

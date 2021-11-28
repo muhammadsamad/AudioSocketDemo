@@ -1,5 +1,4 @@
 class Audition < ApplicationRecord
-  extend IndexConcern
   require 'csv'
   include PgSearch::Model
   pg_search_scope :search_by,
@@ -63,7 +62,7 @@ class Audition < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{id name artist_name email genres submitted assigned_to status}
+    attributes = %w{id name artist_name email genres formatted_created_at assigned_to status}
     CSV.generate(headers: true) do |csv|
       csv << attributes
       all.find_each do |audition|

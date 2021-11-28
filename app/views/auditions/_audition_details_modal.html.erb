@@ -1,6 +1,6 @@
 <div class="modal-header">
   <div class="modal-title" id="new-user-modal-label">
-    <strong class="text-uppercase"><%= audition::name %></strong>
+    <strong class="text-uppercase"><%= audition.name %></strong>
     <i class="ps-3"><%= audition.status %></i>
   </div>
 </div>
@@ -54,7 +54,7 @@
       Submitted at
     </div>
     <div class="col">
-      <%= audition::submitted %>
+      <%= audition.formatted_created_at %>
     </div>
   </div>
   <div class="row pt-2">
@@ -62,7 +62,7 @@
       Genres
     </div>
     <div class="col">
-      <%= audition::genres %>
+      <%= audition.genres %>
     </div>
   </div>
   <div class="row pt-2">

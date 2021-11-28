@@ -46,7 +46,7 @@
           email_description: email_description
         },
         success: function(data){
-          // location.reload();
+          location.reload();
         }
       });
     }
@@ -83,7 +83,9 @@
     <% @auditions.each do |audition| %>
       <tr scope="row">
         <td><%= audition.id %></td>
-        <td><%= audition.name, data: {bs_toggle: 'modal', bs_target: '#new-user-modal', remote: true} %></td>
+        <td>
+            <%= link_to audition.name, audition_path(audition.id), data: {bs_toggle: 'modal', bs_target: '#new-user-modal', remote: true} %>
+        </td>
         <td><%= audition.artist_name %></td>
         <td><%= audition.email %></td>
         <td><%= audition.genres %></td>

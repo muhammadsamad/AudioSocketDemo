@@ -1,3 +1,59 @@
+<% content_for :auditions_index_js do %>
+  <script>
+  $(document).ready(function() {
+    $('.select').on('change', function() {
+      $.ajax({
+        url: '/update',
+        type:'PATCH',
+        data: {
+          id: $(this).attr("id"),
+          assigned_to: this.value,
+        }
+      });
+    });
+    $(document).on("click", ".modal-footer a", function(e){
+      e.preventDefault();
+      let id = $(this).attr("id");
+      let status = $(this).attr("value");
+      if(status == "Accepted"){
+        $("#email-accepted").removeClass("email-description");
+        CKEDITOR.replace( 'editor2' );
+        callingAJAX(id, status);
+      }
+      else if(status == "Rejected"){
+        $("#email-rejected").removeClass("email-description");
+        callingAJAX(id, status);
+      }
+      else if(status == "Deleted"){
+        ajaxStatusEmailRequest(id,status);
+      }
+    });
+
+    function callingAJAX(id, status){
+      $(document).on("click", ".btn-email", function(){
+        let email_description = (CKEDITOR.instances['email_description'].getData()).slice(3,-5);
+        ajaxStatusEmailRequest(id,status,email_description);
+      });
+    }
+
+    function ajaxStatusEmailRequest(id, status, email_description){
+      $.ajax({
+        url: '/change_status_send_email',
+        type:'PATCH',
+        data: {
+          id: id,
+          status: status,
+          email_description: email_description
+        },
+        success: function(data){
+          // location.reload();
+        }
+      });
+    }
+  });
+  </script>
+<% end %>
+
 <div class="mb-2">
   <%= form_with(url: auditions_path, method: :get) do |f| %>
     <%= f.text_field :query, class: 'search pb-2 mb-1', placeholder: 'Search by Name, Artist, Email...' %>

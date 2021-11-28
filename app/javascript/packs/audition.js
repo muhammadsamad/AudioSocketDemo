@@ -28,7 +28,6 @@ $(document).ready(function() {
   check_to_hide_or_show_add_link();
 
   $('.select').on('change', function() {
-    console.log("h");
     $.ajax({
       url: "/auditions/" + $(this).attr("id"),
       type: 'PATCH',
@@ -75,7 +74,7 @@ function ajaxStatusEmailRequest(id, status, email_description){
       email_description: email_description
     },
     success: function(data){
-      // location.reload();
+      location.reload();
     }
   });
 }

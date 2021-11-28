@@ -12,7 +12,7 @@ class AuditionsController < ApplicationController
   def create
     @audition = Audition.new(audition_params)
     if @audition.save
-      redirect_to new_audition_path
+      redirect_to '/index'
     else
       render :new
     end

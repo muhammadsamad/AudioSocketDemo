@@ -26,7 +26,7 @@ class TracksController < ApplicationController
       flash[:notice] = "Track is created successfully"
       redirect_to album_tracks_path
     else
-      flash[:alert] = "Track is not created"
+      flash[:alert] = "Kindly upload .mp3 or .wav audio file!"
       redirect_to album_tracks_path
     end
   end

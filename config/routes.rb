@@ -10,11 +10,4 @@ Rails.application.routes.draw do
       resources :tracks
     end
   end
-  # resources :albums do
-  #   resources :tracks
-  # end
-
-  # resources :artist_details, except: :index do
-  #   resources :albums
-  # end
 end

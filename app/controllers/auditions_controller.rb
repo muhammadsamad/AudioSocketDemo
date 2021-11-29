@@ -1,4 +1,6 @@
 class AuditionsController < ApplicationController
+  before_action :authenticate_user!, only: :index
+  before_action :set_manager, only: :index
   before_action :set_audition, only: %i[ show update update_status_email ]
   before_action :auditions_index, only: %i[ index auditions_csv ]
 
@@ -61,5 +63,13 @@ class AuditionsController < ApplicationController
     params.require(:audition).permit(:firstname, :lastname, :email, :artist_name,
                                     :link, :media, :media_other, :info, :email_description, :status,
                                     links_attributes: [:id, :link_field, :_destroy], genre: [])
+  end
+
+  def set_manager
+    debugger
+    if current_user.role != "Manager"
+      flash[:notice] = "That page can be accessed by managers only."
+      redirect_to new_audition_path
+    end
   end
 end

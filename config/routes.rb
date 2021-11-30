@@ -11,5 +11,8 @@ Rails.application.routes.draw do
     end
   end
   post 'transaction', to: "artist_details#transaction", as: "transaction"
+  authenticated :user, ->(u) { u.role == "Manager" } do
+    root to: "auditions#index"
+  end
   root to: "auditions#new"
 end

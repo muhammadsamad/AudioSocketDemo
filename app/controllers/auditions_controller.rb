@@ -1,9 +1,8 @@
 class AuditionsController < ApplicationController
   before_action :set_audition, only: :update
+  before_action :find_auditions, only: :index
 
-  def index
-    @auditions = Audition.search(params[:query], params[:sort], params[:direction], params[:status])
-  end
+  def index; end
 
   def new
     @audition = Audition.new
@@ -29,6 +28,10 @@ class AuditionsController < ApplicationController
 
   def set_audition
     @audition = Audition.find(params[:id])
+  end
+
+  def find_auditions
+    @auditions = Audition.search(params[:query], params[:sort], params[:direction], params[:status])
   end
 
   def audition_params

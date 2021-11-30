@@ -66,7 +66,6 @@ class AuditionsController < ApplicationController
   end
 
   def set_manager
-    debugger
     if current_user.role != "Manager"
       flash[:notice] = "That page can be accessed by managers only."
       redirect_to new_audition_path

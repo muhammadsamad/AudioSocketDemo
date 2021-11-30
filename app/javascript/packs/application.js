@@ -11,5 +11,6 @@ Turbolinks.start();
 ActiveStorage.start();
 require("@nathanvda/cocoon");
 import "bootstrap";
-require("packs/audition-form");
-require("packs/select2")
+require("packs/audition");
+require("packs/select2");
+require("packs/track");

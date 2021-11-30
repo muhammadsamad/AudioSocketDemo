@@ -5,5 +5,12 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:role])
   end
-end
 
+  def after_sign_in_path_for(audition)
+    if current_user.role == "Manager"
+      auditions_path
+    elsif current_user.role == "Artist"
+      new_audition_path
+   end
+  end
+end

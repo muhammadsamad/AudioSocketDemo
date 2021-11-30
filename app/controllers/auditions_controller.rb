@@ -39,9 +39,8 @@ class AuditionsController < ApplicationController
   end
 
   def update_status_email
-    @audition.status = params[:status]
-    @audition.email_description = params[:email_description]
-    if @audition.save
+    if @audition.update(status: params[:status], email_description: params[:email_description])
+      flash[:notice] = "Status is changed and email has been sent to artist"
       unless @audition.status == "Deleted"
         User.invite!(email: @audition.email, email_content: @audition.email_description, update_status: @audition.status, role: User::ARTIST)
       end

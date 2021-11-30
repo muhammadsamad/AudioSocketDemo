@@ -1,6 +1,7 @@
 <% content_for :braintree_js do %>
   <script src="https://js.braintreegateway.com/web/dropin/1.32.1/js/dropin.min.js"></script>
   <script>
+  $(document).ready(function(){
     var form = $('#payment-form');
     var submitButton = $('#payment-submission');
     var client_token = "<%= @client_token %>";
@@ -22,6 +23,7 @@
         });
       });
     });
+  });
   </script>
 <% end %>
 

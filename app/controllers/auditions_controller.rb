@@ -12,7 +12,7 @@ class AuditionsController < ApplicationController
   def create
     @audition = Audition.new(audition_params)
     if @audition.save
-      redirect_to '/index'
+      redirect_to '/thank_you'
     else
       render :new
     end
@@ -26,7 +26,6 @@ class AuditionsController < ApplicationController
 
   def auditions_csv
     respond_to do |format|
-      format.html
       format.csv { send_data @auditions.to_csv }
     end
   end

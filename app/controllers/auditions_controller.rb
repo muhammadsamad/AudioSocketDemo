@@ -1,8 +1,8 @@
 class AuditionsController < ApplicationController
   before_action :set_audition, only: :update
-  before_action :find_auditions, only: :index
+  before_action :find_auditions, only: %i[ index format_csv ]
 
-  def index; end
+  def index;  end
 
   def new
     @audition = Audition.new
@@ -25,7 +25,6 @@ class AuditionsController < ApplicationController
   end
 
   def format_csv
-    @auditions = Audition.index_finder(params[:query], params[:sort], params[:direction], params[:status])
     send_data @auditions.to_csv
   end
 
@@ -36,6 +35,10 @@ class AuditionsController < ApplicationController
 
   def find_auditions
     @auditions = Audition.search(params[:query], params[:sort], params[:direction], params[:status])
+  end
+
+  def find_auditions
+    @auditions = Audition.index_finder(params[:query], params[:sort], params[:direction], params[:status])
   end
 
   def audition_params

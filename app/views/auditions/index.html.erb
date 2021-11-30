@@ -84,7 +84,7 @@
       <tr scope="row">
         <td><%= audition.id %></td>
         <td>
-            <%= link_to audition.name, audition_path(audition.id), data: {bs_toggle: 'modal', bs_target: '#new-user-modal', remote: true} %>
+            <%= link_to audition.name, audition_path(audition.id), data: {bs_toggle: 'modal', bs_target: '#audition-status-modal', remote: true} %>
         </td>
         <td><%= audition.artist_name %></td>
         <td><%= audition.email %></td>
@@ -97,7 +97,7 @@
   </tbody>
 </table>
 <!--Status Modal -->
-<div class="modal fade" id="new-user-modal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="audition-status-modal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div id="audition-details">
@@ -106,7 +106,7 @@
   </div>
 </div>
 <!--Email Modal -->
-<div class="modal fade" id="example-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="email-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div id="email-content">

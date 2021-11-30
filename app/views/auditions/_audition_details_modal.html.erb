@@ -89,7 +89,7 @@
   </div>
 </div>
 <div class="modal-footer">
-  <%= link_to 'Accept', auditions_path, class: "btn btn-outline-success accept", value: Audition::ACCEPTED , id: audition.id, data: {bs_target: '#example-modal', bs_toggle: 'modal'} %>
-  <%= link_to 'Reject', auditions_path, class: "btn btn-outline-warning reject", value: Audition::REJECTED , id: audition.id, data: {bs_target: '#example-modal', bs_toggle: 'modal'} %>
-  <%= link_to 'Delete', auditions_path, class: "btn btn-outline-danger delete", value: Audition::DELETED , id: audition.id, data: {bs_target: '#example-modal', bs_toggle: 'modal'} %>
+  <%= link_to 'Accept', auditions_path, class: "btn btn-outline-success accept", value: Audition::ACCEPTED , id: audition.id, data: {bs_target: '#email-modal', bs_toggle: 'modal'} %>
+  <%= link_to 'Reject', auditions_path, class: "btn btn-outline-warning reject", value: Audition::REJECTED , id: audition.id, data: {bs_target: '#email-modal', bs_toggle: 'modal'} %>
+  <%= link_to 'Delete', auditions_path, class: "btn btn-outline-danger delete", value: Audition::DELETED , id: audition.id, data: {bs_target: '#email-modal', bs_toggle: 'modal'} %>
 </div>

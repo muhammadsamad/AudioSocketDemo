@@ -34,9 +34,13 @@ class Audition < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << attributes
       all.each do |audition|
-        csv << attributes.map{ |attr| audition.send(attr) }
+        csv << record_csv(attributes, audition)
       end
     end
+  end
+
+  def self.record_csv(attributes, audition)
+    attributes.map{ |attribute| audition.send(attribute) }
   end
 
   def self.search(query, sort, direction, status)
@@ -44,6 +48,7 @@ class Audition < ApplicationRecord
     scope = scope.search_by(query) if query.present?
     scope = scope.order("#{sort} #{direction}") if sort.present?
     scope = scope.find_status(status) if status.present?
+
     scope
   end
 

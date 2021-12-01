@@ -19,7 +19,7 @@
           <%= f.text_field :artist_name, placeholder: "Artist Name", class: "form-control", autocomplete: "artist_name" %>
         </div>
         <div>
-          <div class="mb-3" id="colours">
+          <div class="mb-3" id="link-fields">
             <%= f.fields_for :links do |t| %>
               <%= render "link_fields", f: t %>
             <% end %>
@@ -30,13 +30,13 @@
           </div>
           <div class="mb-3">
             <p>Select Genre</p>
-            <%= f.select :genre, Audition::GENRES, {}, class: "form-control", multiple: true %>
+            <%= f.select :genre, Audition::GENRES, {include_hidden: false}, class: "form-control genre-multiple", multiple: true %>
           </div>
           <div class="mb-3">
             <p>How did you hear about us?</p>
             <%= f.select :media, Audition::SOURCES, {}, class: "form-control", id: "media" %>
           </div>
-          <div class="mb-3" style="display: none;" id="ifYes">
+          <div class="mb-3" id="other-text-field">
             <%= f.text_field :media_other, placeholder: "Enter Social Media", class: "form-control", autocomplete: "media_other" %>
           </div>
           <div class="mb-3">
@@ -50,6 +50,3 @@
     </div>
   </div>
 </div>
-
-
-

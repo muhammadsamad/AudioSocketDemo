@@ -1,0 +1,64 @@
+<div class="mb-2">
+  <%= form_with(url: auditions_path, method: :get) do |f| %>
+    <%= f.text_field :query, class: 'search pb-2 mb-1', placeholder: 'Search by Name, Artist, Email...' %>
+    <%= f.submit "Search", class: 'btn btn-outline-secondary mt-1' %>
+  <% end %>
+</div>
+<%= render 'tabs' %>
+<%= link_to "Export csv", auditions_csv_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col"><%= sortable "firstname", "Name" %></th>
+      <th scope="col"><%= sortable "artist_name" %></th>
+      <th scope="col"><%= sortable "email" %></th>
+      <th scope="col"><%= sortable "genre" %></th>
+      <th scope="col"><%= sortable "created_at" %></th>
+      <th scope="col">Assigned_to</th>
+      <th scope="col"><%= sortable "status" %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @auditions.each do |audition| %>
+      <tr scope="row">
+        <td><%= audition.id  %></td>
+        <td>
+          <%= link_to audition::name, audition_path(audition.id), data: {bs_toggle: 'modal', bs_target: '#new-user-modal', remote: true} %>
+        </td>
+        <td><%= audition.artist_name %></td>
+        <td><%= audition.email %></td>
+        <td><%= audition::genres %></td>
+        <td><%= audition::submitted %></td>
+        <% if audition.assigned_to %>
+          <td>
+            <%= select_tag(audition.id, options_for_select(assigned_to_map(User.manager_role) , selected: audition.assigned_to), class: "select", prompt: "Select", remote: true) %>
+          </td>
+        <% else %>
+          <td>
+            <%= select_tag(audition.id, options_for_select(assigned_to_map(User.manager_role)), class: "select", prompt: "Select", remote: true) %>
+          </td>
+        <% end %>
+        <td><%= audition.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<!--Status Modal -->
+<div class="modal fade" id="new-user-modal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="audition-details">
+      </div>
+    </div>
+  </div>
+</div>
+<!--Email Modal -->
+<div class="modal fade" id="example-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="email-content">
+      </div>
+    </div>
+  </div>
+</div>

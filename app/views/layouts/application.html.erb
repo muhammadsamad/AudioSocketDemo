@@ -7,8 +7,12 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag Ckeditor.cdn_url %>
+    <%= yield :artist_details_edit_js %>
+    <%= yield :braintree_js %>
   </head>
   <body>
+    <%= render "shared/navbar" %>
     <%= render "shared/flash_messages" %>
     <%= yield %>
   </body>

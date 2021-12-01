@@ -1,0 +1,65 @@
+<% content_for :artist_details_edit_js do %>
+  <script>
+    $(document).ready(function() {
+      $("#social-link").on('click',function(event) {
+        event.preventDefault();
+        $('.social').after($('<div><input class="form-control mb-1" name="artist_detail[social_link][]"></div>'));
+      });
+    });
+  </script>
+<% end %>
+
+<div class="sidebar">
+  <%= link_to "Music Section", artist_detail_albums_path(@artist_detail) %>
+  <%= link_to "Profile", edit_artist_detail_path(@artist_detail) %>
+</div>
+<div class="content">
+  <%= form_with model: @artist_detail, url: artist_detail_path(@artist_detail), method: :patch, local: true do |form| %>
+    <div class="field mb-3">
+      <%= form.label :profile %>
+      <%= form.file_field :profile, class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= form.label :artist_name %>
+      <%= form.text_field :artist_name, readonly: true, class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= form.label :email_address %>
+      <%= form.text_field :email_address, class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= form.label :country %>
+      <%= form.country_select :country, class: "form-control w-100" %>
+    </div>
+    <div class="field">
+      <%= form.label :Bio %>
+      <%= form.text_area :bio, class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= form.label :website_link %>
+      <%= form.text_field :website_link, class: "form-control" %>
+    </div>
+   <div class="field-with-social-link">
+        <%= form.label :social_link %>
+        <div class="social">
+          <%= form.text_field :social_link, class: 'social-field form-control mb-1', multiple: true %>
+        </div>
+    </div>
+    <%= link_to "Add Social Link", "", id: 'social-link', class: "btn btn-outline-secondary mb-3 mt-2" %>
+    <div class="actions mb-3">
+      <%= form.submit %>
+    </div>
+  <% end %>
+  <div>
+    <% if @artist_detail.pro == false %>
+      <%= link_to 'Upgrade to Pro', " ", class: "btn btn-dark upgrade-pro", data: {bs_toggle: 'modal', bs_target: '#payment-artist-modal', remote: true} %>
+    <% end %>
+  </div>
+</div>
+<div class="modal fade" id="payment-artist-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= render 'braintree_payment' %>
+    </div>
+  </div>
+</div>

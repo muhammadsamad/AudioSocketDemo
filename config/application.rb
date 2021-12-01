@@ -5,7 +5,7 @@ require "rails/all"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
+Dotenv::Railtie.load
 module Audiosocket
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -18,5 +18,6 @@ module Audiosocket
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.active_storage.variant_processor = :mini_magick
   end
 end

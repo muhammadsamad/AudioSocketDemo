@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <strong>Email</strong>
+</div>
+<div class="modal-body">
+  <%= form_with(url: audition_path(audition.id)) do |f| %>
+    <div id="email-con">
+      <%= f.cktext_area :email_description, class: "email--desc" %>
+    </div>
+  <% end %>
+</div>
+<div class="modal-footer">
+  <%= link_to "Send Email", "", class: "btn btn-secondary btn-email", data: {bs_dismiss:"modal"} %>
+</div>

@@ -37,10 +37,6 @@ class AuditionsController < ApplicationController
     @auditions = Audition.search(params[:query], params[:sort], params[:direction], params[:status])
   end
 
-  def find_auditions
-    @auditions = Audition.index_finder(params[:query], params[:sort], params[:direction], params[:status])
-  end
-
   def audition_params
     params.require(:audition).permit(:firstname, :lastname, :email, :artist_name,
                                     :link, :media, :media_other, :info, :assigned_to,

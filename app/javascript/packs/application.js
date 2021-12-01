@@ -9,7 +9,7 @@ import "channels";
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
+require("jquery");
 require("@nathanvda/cocoon");
 import "bootstrap";
-require("packs/audition-form");
-require("packs/select2")
+require("packs/custom");

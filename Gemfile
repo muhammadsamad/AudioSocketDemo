@@ -30,6 +30,8 @@ gem 'ckeditor'
 gem 'devise_invitable'
 gem "image_processing"
 gem 'country_select'
+# Rails 5.2 and Rails 6
+gem 'active_storage_validations'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -33,7 +33,7 @@ class AlbumsController < ApplicationController
   def update
     if @album.update(album_params)
       flash[:notice] = "Album is updated successfully"
-      redirect_to artist_detail_albums_path(@artist_detail, @album)
+      redirect_to artist_detail_albums_path(@artist_detail)
     else
       flash[:alert] = "Album is not updated"
       render :edit

@@ -16,7 +16,7 @@ module AuditionHelper
     end
   end
 
-  def statustabs(column, status)
+  def status_tabs(column, status)
     link_to status, status: status
   end
 end

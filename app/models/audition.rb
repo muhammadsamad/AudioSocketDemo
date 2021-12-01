@@ -1,5 +1,4 @@
 class Audition < ApplicationRecord
-  extend IndexConcern
   require 'csv'
   include PgSearch::Model
   pg_search_scope :search_by,
@@ -48,6 +47,7 @@ class Audition < ApplicationRecord
     scope = scope.search_by(query) if query.present?
     scope = scope.order("#{sort} #{direction}") if sort.present?
     scope = scope.find_status(status) if status.present?
+    scope = self.all if status == "All"
 
     scope
   end

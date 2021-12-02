@@ -2,7 +2,7 @@
   <strong>Email</strong>
 </div>
 <div class="modal-body">
-  <%= form_with(url: audition_path(audition.id)) do |f| %>
+  <%= form_with(url: auditions_path) do |f| %>
     <div id="email-rejected" class="email-description">
       <%= f.cktext_area :email_description, value: Audition::AUDITION_REJECT_EMAIL %>
     </div>

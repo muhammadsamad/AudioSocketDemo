@@ -38,7 +38,7 @@
       <div class="d-flex justify-content-center">
         <h2 class="signup-heading">Submit Audition</h2>
       </div>
-      <%= form_for(@audition, remote: true) do |f| %>
+      <%= form_for(@audition) do |f| %>
         <div class="mb-3">
           <%= f.text_field :firstname, placeholder: "First Name", class: "form-control", required: true %>
         </div>

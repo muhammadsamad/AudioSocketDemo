@@ -1,6 +1,6 @@
 class AuditionsController < ApplicationController
   before_action :set_audition, only: :update
-  before_action :find_auditions, only: %i[ index format_csv ]
+  before_action :set_auditions, only: %i[index format_csv]
 
   def index;  end
 
@@ -33,7 +33,7 @@ class AuditionsController < ApplicationController
     @audition = Audition.find(params[:id])
   end
 
-  def find_auditions
+  def set_auditions
     @auditions = Audition.search(params[:query], params[:sort], params[:direction], params[:status])
   end
 

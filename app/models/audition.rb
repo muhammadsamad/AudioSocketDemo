@@ -4,7 +4,7 @@ class Audition < ApplicationRecord
   pg_search_scope :search_by,
                   against: [:firstname, :lastname, :email, :status, :genre, :created_at, :id, :artist_name],
                   using: {
-                    tsearch: { prefix: true, any_word: true}
+                    tsearch: { prefix: true}
                   }
 
   GENRES = ['Acapella', 'Acid', 'Jazz', 'Acoustic', 'Acid Punk', 'Alternative', 'Hip Hop', 'Ambient',
@@ -16,11 +16,13 @@ class Audition < ApplicationRecord
   REJECTED = "Rejected".freeze
   DELETED = "Deleted".freeze
   STATUSES = [PENDING, ACCEPTED, REJECTED, DELETED].freeze
+  CSV_ATTRIBUTES = %w[id name artist_name email genres formatted_created_at assigned_to status].freeze
+  NAME_REGEX = /(?=.*[[:^alnum:]])/.freeze
 
   enum status: STATUSES
 
-  validates :firstname, length: { maximum: 30 }, format: { without: /(?=.*[[:^alnum:]])/ }
-  validates :lastname, length: { maximum: 30 }, format: { without: /(?=.*[[:^alnum:]])/ }
+  validates :firstname, length: { maximum: 30 }, format: { without: NAME_REGEX }
+  validates :lastname, length: { maximum: 30 }, format: { without: NAME_REGEX }
 
   has_many :links, dependent: :destroy
 
@@ -28,26 +30,27 @@ class Audition < ApplicationRecord
 
   after_initialize :default_email_status, if: :new_record?
 
+  scope :by_status, ->(status) { where(status: status) }
+  scope :count_by_status, ->(status) { by_status(status).count }
+
   def self.to_csv
-    attributes = %w{id name artist_name email genres formatted_created_at assigned_to status}
     CSV.generate(headers: true) do |csv|
-      csv << attributes
+      csv << CSV_ATTRIBUTES
       all.each do |audition|
-        csv << record_csv(attributes, audition)
+        csv <<  audition.csv_row
       end
     end
   end
 
-  def self.record_csv(attributes, audition)
-    attributes.map{ |attribute| audition.send(attribute) }
+  def csv_row
+    CSV_ATTRIBUTES.map{ |attribute| send(attribute) }
   end
 
   def self.search(query, sort, direction, status)
     scope = self.all
     scope = scope.search_by(query) if query.present?
     scope = scope.order("#{sort} #{direction}") if sort.present?
-    scope = scope.find_status(status) if status.present?
-    scope = self.all if status == "All"
+    scope = scope.by_status(status) if status.present?
 
     scope
   end
@@ -71,6 +74,4 @@ class Audition < ApplicationRecord
   def manager_assigned(audition)
     audition.assigned_to
   end
-
-  scope :find_status, ->(status) { where(status: status) }
 end

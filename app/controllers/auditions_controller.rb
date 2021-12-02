@@ -2,7 +2,7 @@ class AuditionsController < ApplicationController
   before_action :set_audition, only: :update
   before_action :set_auditions, only: %i[index format_csv]
 
-  def index;  end
+  def index; end
 
   def new
     @audition = Audition.new

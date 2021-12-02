@@ -3,10 +3,10 @@
 </div>
 <div class="modal-body">
   <%= form_with(url: auditions_path) do |f| %>
-    <div id="email-rejected" class="email-description">
+    <div id="email-rejected">
       <%= f.cktext_area :email_description, value: Audition::AUDITION_REJECT_EMAIL %>
     </div>
-    <div id="email-accepted" class="email-description">
+    <div id="email-accepted">
       <%= f.cktext_area :email_description, name: "editor2", value: Audition::AUDITION_ACCEPT_EMAIL %>
     </div>
   <% end %>

@@ -5,7 +5,7 @@
   <% end %>
 </div>
 <%= render 'tabs' %>
-<%= link_to "Export csv", format_csv_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
+<%= link_to "Export csv", format_csv_auditions_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
 <table class="table table-bordered">
   <thead>
     <tr>

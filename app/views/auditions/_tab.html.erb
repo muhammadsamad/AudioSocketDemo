@@ -1,5 +1,5 @@
 <span class="btn btn-lg btn-light col">
   <%= link_to "All" if status.blank? %>
-  <%= status_tabs "status", status if status.present? %>
+  <%= status_tabs_link "status", status if status.present? %>
   <%= auditions_count(status) %>
 </span>

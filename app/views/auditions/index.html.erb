@@ -24,12 +24,12 @@
         let id = $(this).attr("id");
         let status = $(this).attr("value");
         if(status == "Accepted"){
-          $("#email-accepted").removeClass("email-description");
+          $("#email-accepted").removeClass(".display-none");
           CKEDITOR.replace( 'editor2' );
           callingAJAX(id, status);
         }
         else if(status == "Rejected"){
-          $("#email-rejected").removeClass("email-description");
+          $("#email-rejected").removeClass(".display-none");
           callingAJAX(id, status);
         }
         else if(status == "Deleted"){
@@ -69,11 +69,7 @@
   <% end %>
 </div>
 <%= render 'tabs' %>
-<<<<<<< HEAD
-<%= link_to "Export csv", format_csv_auditions_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
-=======
 <%= link_to "Export csv", auditions_csv_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
->>>>>>> a414a5c ( Audition Details Changing status, changes applied)
 <table class="table table-bordered">
   <thead>
     <tr>

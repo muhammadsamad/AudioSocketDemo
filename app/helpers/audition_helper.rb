@@ -19,4 +19,10 @@ module AuditionHelper
   def status_tabs(column, status)
     link_to status, status: status
   end
+
+  def auditions_count(status)
+    return Audition.count if status.blank?
+
+    Audition.count_by_status(status)
+  end
 end

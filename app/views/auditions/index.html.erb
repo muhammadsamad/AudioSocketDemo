@@ -1,63 +1,64 @@
 <% content_for :auditions_index_js do %>
   <script>
-  $(document).ready(function() {
-    $('.select').on('change', function() {
-      $.ajax({
-        url: "/auditions/" + $(this).attr("id"),
-        type: 'PATCH',
-        data: {
-          assigned_to: this.value
-        },
-       success: function()
-       {
-        alert("Audition has been assigned");
-       },
-       error: function()
-       {
-        alert("Audition has not been assigned");
-       }
+    $(document).ready(function() {
+      $('.select').on('change', function() {
+        $.ajax({
+          url: "/auditions/" + $(this).attr("id"),
+          type: 'PATCH',
+          data: {
+            assigned_to: this.value
+          },
+         success: function()
+         {
+          alert("Audition has been assigned");
+         },
+         error: function()
+         {
+          alert("Audition has not been assigned");
+         }
+        });
       });
-    });
-    $(document).on("click", ".modal-footer a", function(e){
-      e.preventDefault();
-      let id = $(this).attr("id");
-      let status = $(this).attr("value");
-      if(status == "Accepted"){
-        $("#email-accepted").removeClass("email-description");
-        CKEDITOR.replace( 'editor2' );
-        callingAJAX(id, status);
-      }
-      else if(status == "Rejected"){
-        $("#email-rejected").removeClass("email-description");
-        callingAJAX(id, status);
-      }
-      else if(status == "Deleted"){
-        ajaxStatusEmailRequest(id,status);
-      }
-    });
 
-    function callingAJAX(id, status){
-      $(document).on("click", ".btn-email", function(){
-        let email_description = (CKEDITOR.instances['email_description'].getData()).slice(3,-5);
-        ajaxStatusEmailRequest(id,status,email_description);
-      });
-    }
-
-    function ajaxStatusEmailRequest(id, status, email_description){
-      $.ajax({
-        url: '/change_status_send_email',
-        type:'PATCH',
-        data: {
-          id: id,
-          status: status,
-          email_description: email_description
-        },
-        success: function(data){
-          location.reload();
+      $(document).on("click", ".modal-footer a", function(e){
+        e.preventDefault();
+        let id = $(this).attr("id");
+        let status = $(this).attr("value");
+        if(status == "Accepted"){
+          $("#email-accepted").removeClass("email-description");
+          CKEDITOR.replace( 'editor2' );
+          callingAJAX(id, status);
+        }
+        else if(status == "Rejected"){
+          $("#email-rejected").removeClass("email-description");
+          callingAJAX(id, status);
+        }
+        else if(status == "Deleted"){
+          ajaxStatusEmailRequest(id,status);
         }
       });
-    }
-  });
+
+      function callingAJAX(id, status){
+        $(document).on("click", ".btn-email", function(){
+          let email_description = (CKEDITOR.instances['email_description'].getData()).slice(3,-5);
+          ajaxStatusEmailRequest(id,status,email_description);
+        });
+      }
+
+      function ajaxStatusEmailRequest(id, status, email_description){
+        $.ajax({
+          url: '/change_status_send_email',
+          type:'PATCH',
+          data: {
+            id: id,
+            status: status,
+            email_description: email_description
+          },
+          success: function(data){
+            location.reload();
+          }
+        });
+      }
+    });
   </script>
 <% end %>
 
@@ -90,9 +91,7 @@
     <% @auditions.each do |audition| %>
       <tr scope="row">
         <td><%= audition.id %></td>
-        <td>
-            <%= link_to audition.name, audition_path(audition.id), data: {bs_toggle: 'modal', bs_target: '#audition-status-modal', remote: true} %>
-        </td>
+        <td><%= link_to audition.name, audition_path(audition.id), data: {bs_toggle: 'modal', bs_target: '#audition-status-modal', remote: true} %></td>
         <td><%= audition.artist_name %></td>
         <td><%= audition.email %></td>
         <td><%= audition.genres %></td>

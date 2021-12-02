@@ -14,9 +14,7 @@
  *= require_self
  */
 @import "bootstrap/scss/bootstrap";
-.display-none {
-  display: none;
-}
-.email-description {
+
+.display-none, .email-description {
   display: none;
 }

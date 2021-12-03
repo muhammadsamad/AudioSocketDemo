@@ -1,5 +1,5 @@
 class AuditionsController < ApplicationController
-  before_action :set_audition, only: %i[ show update change_status_send_email ]
+  before_action :set_audition, only: %i[show update change_status_send_email]
   before_action :set_auditions, only: %i[index format_csv]
 
   def index; end

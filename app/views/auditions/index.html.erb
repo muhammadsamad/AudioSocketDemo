@@ -8,14 +8,8 @@
           data: {
             assigned_to: this.value
           },
-         success: function()
-         {
-          alert("Audition has been assigned");
-         },
-         error: function()
-         {
-          alert("Audition has not been assigned");
-         }
+         success: function(){alert("Audition has been assigned");},
+         error: function(){alert("Audition has not been assigned");}
         });
       });
 
@@ -24,12 +18,12 @@
         let id = $(this).attr("id");
         let status = $(this).attr("value");
         if(status == "Accepted"){
-          $("#email-accepted").removeClass(".display-none");
+          $("#email-accepted").removeClass("display-none");
           CKEDITOR.replace( 'editor2' );
           callingAJAX(id, status);
         }
         else if(status == "Rejected"){
-          $("#email-rejected").removeClass(".display-none");
+          $("#email-rejected").removeClass("display-none");
           callingAJAX(id, status);
         }
         else if(status == "Deleted"){
@@ -46,16 +40,14 @@
 
       function ajaxStatusEmailRequest(id, status, email_description){
         $.ajax({
-          url: '/change_status_send_email',
+          url: 'auditions/' + id + '/change_status_send_email',
           type:'PATCH',
           data: {
             id: id,
             status: status,
             email_description: email_description
           },
-          success: function(data){
-            location.reload();
-          }
+          success: function(){location.reload();}
         });
       }
     });
@@ -69,7 +61,7 @@
   <% end %>
 </div>
 <%= render 'tabs' %>
-<%= link_to "Export csv", auditions_csv_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
+<%= link_to "Export csv", format_csv_auditions_path(request.parameters.merge(format:'csv')), class:"btn btn-lg btn-success mb-2" %>
 <table class="table table-bordered">
   <thead>
     <tr>

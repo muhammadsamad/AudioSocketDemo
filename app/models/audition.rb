@@ -19,7 +19,7 @@ class Audition < ApplicationRecord
   CSV_ATTRIBUTES = %w[id name artist_name email genres formatted_created_at assigned_to status].freeze
   NAME_REGEX = /(?=.*[[:^alnum:]])/.freeze
   AUDITION_ACCEPT_EMAIL="Hi [name]!Thanks for submitting music to Audiosocket, we have listened to your link and would love to work with you! Please sign in to our artist portal here. There, you can update your artist profile, submit music, artworks, etc. The more assets you can give us the better. Once submitted, our team will review and will start the ingestion into our catalog.Thanks! Music Licensing Coordinator".freeze
-  AUDITION_REJECT_EMAIL="Hello [name],Thank you for submitting an audition. After careful review, we’ve decided the music you submitted is not a match for our current needs. Please understand, that while your music may not be a match this time, it certainly might be in the future as our clients’ needs are constantly changing.With that in mind, we encourage you to submit new music again in the future.Have a great day!".freeze
+  AUDITION_REJECT_EMAIL="Hello [name],Thank you for submitting an audition. After careful review, we have decided the music you submitted is not a match for our current needs. Please understand, that while your music may not be a match this time, it certainly might be in the future as our clients’ needs are constantly changing.With that in mind, we encourage you to submit new music again in the future.Have a great day!".freeze
 
   enum status: STATUSES
 

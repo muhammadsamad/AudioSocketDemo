@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <strong>Email</strong>
+</div>
+<div class="modal-body">
+  <%= form_with(url: auditions_path) do |f| %>
+    <div id="email-rejected" class="display-none">
+      <%= f.cktext_area :email_description, value: Audition::AUDITION_REJECT_EMAIL %>
+    </div>
+    <div id="email-accepted" class="display-none">
+      <%= f.cktext_area :email_description, name: "editor2", value: Audition::AUDITION_ACCEPT_EMAIL %>
+    </div>
+  <% end %>
+</div>
+<div class="modal-footer">
+  <%= link_to "Send Email", "", class: "btn btn-secondary btn-email", data: { bs_dismiss:"modal" } %>
+</div>

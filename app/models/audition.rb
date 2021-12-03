@@ -4,7 +4,7 @@ class Audition < ApplicationRecord
   pg_search_scope :search_by,
                   against: [:firstname, :lastname, :email, :status, :genre, :created_at, :id, :artist_name],
                   using: {
-                    tsearch: { prefix: true}
+                    tsearch: {prefix: true}
                   }
 
   GENRES = ['Acapella', 'Acid', 'Jazz', 'Acoustic', 'Acid Punk', 'Alternative', 'Hip Hop', 'Ambient',
